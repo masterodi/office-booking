@@ -5,5 +5,5 @@ export default defineEventHandler(async (event) => {
 
 	const insertResult = await db.insert(tables.desks).values(body).returning();
 
-	return insertResult[0].id;
+	return { data: insertResult };
 });
