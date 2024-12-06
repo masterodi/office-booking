@@ -7,10 +7,11 @@ This is the first "big" web app I've worked on at my first internship. The point
 - [x] Add linting and formatting (ESLint, Prettier)
 - [x] Connect to database (DrizzleORM + Turso SQLite)
 - [ ] Implement desks features
-    - [ ] Create a desk
+    - [x] Create a desk
     - [ ] List all desks, one desk, booked desks on a date etc.
     - [ ] Update a desk
     - [ ] Delete a desk
+- [ ] Implement server data validation
 - [ ] Implement Authentication/Authorization
 - [ ] Implement booking features
     - [ ] Create a booking
