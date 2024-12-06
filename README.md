@@ -9,7 +9,7 @@ This is the first "big" web app I've worked on at my first internship. The point
 - [ ] Implement desks features
     - [x] Create a desk
     - [x] List all desks, one desk, booked desks on a date etc.
-    - [ ] Update a desk
+    - [x] Update a desk
     - [ ] Delete a desk
 - [ ] Implement server data validation
 - [ ] Implement Authentication/Authorization
