@@ -8,7 +8,7 @@ This is the first "big" web app I've worked on at my first internship. The point
 - [x] Connect to database (DrizzleORM + Turso SQLite)
 - [ ] Implement desks features
     - [x] Create a desk
-    - [ ] List all desks, one desk, booked desks on a date etc.
+    - [x] List all desks, one desk, booked desks on a date etc.
     - [ ] Update a desk
     - [ ] Delete a desk
 - [ ] Implement server data validation
