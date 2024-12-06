@@ -1,30 +1,28 @@
+import { DesksQueryParamsSchema } from '~/utils/schemas';
+
 export default defineEventHandler(async (event) => {
 	const db = useDrizzle();
 
-	const qps = getQuery(event);
+	const { start, end } = await getValidatedQuery(event, (value) =>
+		DesksQueryParamsSchema.parse(value),
+	);
 
 	const res = await db.query.desks.findMany({
 		where: (model, { gte, lte, between }) => {
-			if (qps.start && qps.end) {
+			if (start && end) {
 				return between(
 					model.createdAt,
-					new Date(qps.start as string).toISOString(),
-					new Date(qps.end as string).toISOString(),
+					new Date(start).toISOString(),
+					new Date(end).toISOString(),
 				);
 			}
 
-			if (qps.end) {
-				return lte(
-					model.createdAt,
-					new Date(qps.end as string).toISOString(),
-				);
+			if (end) {
+				return lte(model.createdAt, new Date(end).toISOString());
 			}
 
-			if (qps.start) {
-				return gte(
-					model.createdAt,
-					new Date(qps.start as string).toISOString(),
-				);
+			if (start) {
+				return gte(model.createdAt, new Date(start).toISOString());
 			}
 
 			return;

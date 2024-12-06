@@ -11,7 +11,7 @@ This is the first "big" web app I've worked on at my first internship. The point
     - [x] List all desks, one desk, booked desks on a date etc.
     - [x] Update a desk
     - [x] Delete a desk
-- [ ] Implement server data validation
+- [x] Implement server data validation
 - [ ] Implement Authentication/Authorization
 - [ ] Implement booking features
     - [ ] Create a booking

@@ -1,9 +1,18 @@
+import { DesksCreatePayloadSchema } from '~/utils/schemas';
+
 export default defineEventHandler(async (event) => {
 	const db = useDrizzle();
 
-	const body = await readBody(event);
+	let payload = await readValidatedBody(event, (body) =>
+		DesksCreatePayloadSchema.parse(body),
+	);
 
-	const insertResult = await db.insert(tables.desks).values(body).returning();
+	payload = !Array.isArray(payload) ? [payload] : payload;
+
+	const insertResult = await db
+		.insert(tables.desks)
+		.values(payload)
+		.returning();
 
 	return { data: insertResult };
 });
