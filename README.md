@@ -5,7 +5,7 @@ This is the first "big" web app I've worked on at my first internship. The point
 ## TODO
 
 - [x] Add linting and formatting (ESLint, Prettier)
-- [ ] Connect to database (DrizzleORM + Turso SQLite)
+- [x] Connect to database (DrizzleORM + Turso SQLite)
 - [ ] Implement desks features
     - [ ] Create a desk
     - [ ] List all desks, one desk, booked desks on a date etc.
