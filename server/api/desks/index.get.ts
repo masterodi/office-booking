@@ -1,8 +1,6 @@
 import { DesksQueryParamsSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event)
-
   const { start, end } = await getValidatedQuery(event, value =>
     DesksQueryParamsSchema.parse(value),
   )

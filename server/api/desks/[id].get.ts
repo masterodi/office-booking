@@ -1,6 +1,4 @@
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event)
-
   const deskId = getRouterParam(event, 'id')
 
   if (!deskId) return
