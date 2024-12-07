@@ -1,13 +1,13 @@
-import { eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
-	const db = useDrizzle();
+  const db = useDrizzle()
 
-	const deskId = getRouterParam(event, 'id');
+  const deskId = getRouterParam(event, 'id')
 
-	if (!deskId) return;
+  if (!deskId) return
 
-	await db.delete(tables.desks).where(eq(tables.desks.id, deskId));
+  await db.delete(tables.desks).where(eq(tables.desks.id, deskId))
 
-	return;
-});
+  return
+})

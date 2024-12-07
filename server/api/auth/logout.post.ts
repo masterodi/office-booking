@@ -1,4 +1,4 @@
 export default defineEventHandler(async (event) => {
-	await clearUserSession(event);
-	return;
-});
+  await clearUserSession(event)
+  return
+})

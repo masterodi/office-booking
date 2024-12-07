@@ -1,22 +1,22 @@
-import { eq } from 'drizzle-orm';
-import { DeskUpdatePayloadSchema } from '~/utils/schemas';
+import { eq } from 'drizzle-orm'
+import { DeskUpdatePayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-	const db = useDrizzle();
+  const db = useDrizzle()
 
-	const deskId = getRouterParam(event, 'id');
+  const deskId = getRouterParam(event, 'id')
 
-	if (!deskId) return;
+  if (!deskId) return
 
-	const payload = await readValidatedBody(event, (body) =>
-		DeskUpdatePayloadSchema.parse(body),
-	);
+  const payload = await readValidatedBody(event, body =>
+    DeskUpdatePayloadSchema.parse(body),
+  )
 
-	const updateResult = await db
-		.update(tables.desks)
-		.set(payload)
-		.where(eq(tables.desks.id, deskId))
-		.returning();
+  const updateResult = await db
+    .update(tables.desks)
+    .set(payload)
+    .where(eq(tables.desks.id, deskId))
+    .returning()
 
-	return { data: updateResult[0] };
-});
+  return { data: updateResult[0] }
+})
