@@ -1,4 +1,4 @@
-import { DesksCreatePayloadSchema } from '~/utils/schemas'
+import { DesksCreatePayloadSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)

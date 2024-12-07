@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { BookingUpdatePayloadSchema } from '~/utils/schemas'
+import { BookingUpdatePayloadSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)

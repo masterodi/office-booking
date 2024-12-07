@@ -1,4 +1,4 @@
-import { BookingsQueryParamsSchema } from '~/utils/schemas'
+import { BookingsQueryParamsSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   const { start, end } = await getValidatedQuery(event, validateWithSchema(BookingsQueryParamsSchema))

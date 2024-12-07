@@ -1,4 +1,4 @@
-import { BookingsCreatePayloadSchema } from '~/utils/schemas'
+import { BookingsCreatePayloadSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)

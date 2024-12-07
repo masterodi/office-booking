@@ -1,4 +1,4 @@
-import { RegisterPayloadSchema } from '~/utils/schemas'
+import { RegisterPayloadSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   const payload = await readValidatedBody(event, validateWithSchema(RegisterPayloadSchema))

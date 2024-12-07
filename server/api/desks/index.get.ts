@@ -1,4 +1,4 @@
-import { DesksQueryParamsSchema } from '~/utils/schemas'
+import { DesksQueryParamsSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   const { start, end } = await getValidatedQuery(event, validateWithSchema(DesksQueryParamsSchema))

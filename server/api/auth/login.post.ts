@@ -1,4 +1,4 @@
-import { LoginPayloadSchema } from '~/utils/schemas'
+import { LoginPayloadSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   const payload = await readValidatedBody(event, validateWithSchema(LoginPayloadSchema))

@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { DeskUpdatePayloadSchema } from '~/utils/schemas'
+import { DeskUpdatePayloadSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)

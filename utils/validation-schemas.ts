@@ -22,7 +22,7 @@ export const LoginPayloadSchema = z.object({
 })
 
 export const DeskCreatePayloadSchema = z.object({
-  label: z.string(),
+  label: z.string().trim().min(1, 'Label is required'),
 })
 
 export const DesksCreatePayloadSchema = z.union([
