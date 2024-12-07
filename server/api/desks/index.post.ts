@@ -1,7 +1,12 @@
 import { DesksCreatePayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event)
+  const { user } = await requireUserSession(event)
+
+  if (user.role !== 'ADMIN') {
+    setResponseStatus(event, 401)
+    return { message: 'Unauthorized' }
+  }
 
   let payload = await readValidatedBody(event, body =>
     DesksCreatePayloadSchema.parse(body),

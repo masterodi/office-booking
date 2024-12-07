@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
   }
 
   await replaceUserSession(event, {
-    user: { username: existingUser.username },
+    user: { username: existingUser.username, role: existingUser.role },
     loggedInAt: new Date(),
   })
 

@@ -2,7 +2,12 @@ import { eq } from 'drizzle-orm'
 import { DeskUpdatePayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event)
+  const { user } = await requireUserSession(event)
+
+  if (user.role !== 'ADMIN') {
+    setResponseStatus(event, 401)
+    return { message: 'Unauthorized' }
+  }
 
   const deskId = getRouterParam(event, 'id')
 
