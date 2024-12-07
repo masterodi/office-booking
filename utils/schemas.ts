@@ -1,5 +1,26 @@
 import { z } from 'zod';
 
+export const RegisterPayloadSchema = z.object({
+	username: z.string(),
+	password: z.string(),
+});
+
+export const RegisterFormSchema = z.object({
+	username: z.string(),
+	password: z.string(),
+	passwordConfirm: z.string(),
+});
+
+export const LoginFormSchema = z.object({
+	username: z.string(),
+	password: z.string(),
+});
+
+export const LoginPayloadSchema = z.object({
+	username: z.string(),
+	password: z.string(),
+});
+
 export const DeskCreatePayloadSchema = z.object({
 	label: z.string(),
 });

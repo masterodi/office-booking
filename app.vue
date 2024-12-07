@@ -1,10 +1,7 @@
-<script>
-const x = 1;
-</script>
-
 <template>
 	<div>
-		<NuxtRouteAnnouncer />
-		<NuxtWelcome />
+		<NuxtLayout>
+			<NuxtPage />
+		</NuxtLayout>
 	</div>
 </template>

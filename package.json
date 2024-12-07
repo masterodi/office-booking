@@ -15,9 +15,12 @@
 	},
 	"dependencies": {
 		"@libsql/client": "^0.14.0",
+		"@node-rs/argon2": "^2.0.2",
+		"@nuxt/ui": "2.19.2",
 		"@paralleldrive/cuid2": "^2.2.2",
 		"drizzle-orm": "^0.37.0",
 		"nuxt": "^3.14.1592",
+		"nuxt-auth-utils": "0.5.5",
 		"vue": "latest",
 		"vue-router": "latest",
 		"zod": "^3.23.8"
