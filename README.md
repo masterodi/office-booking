@@ -16,7 +16,7 @@ This is the first "big" web app I've worked on at my first internship. The point
     - [x] Implement Authentication
     - [x] Implement Authorization
 - [ ] Implement booking features
-    - [ ] Create a booking
+    - [x] Create a booking
     - [ ] List all bookings, all bookings in a day, all bookings in a date range etc.
     - [ ] Update a booking
     - [ ] Delete a booking

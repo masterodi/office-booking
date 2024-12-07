@@ -13,7 +13,15 @@ export const users = sqliteTable('users', {
 })
 
 export const desks = sqliteTable('desks', {
-  id: text().$defaultFn(() => createId()),
+  id: text().primaryKey().$defaultFn(() => createId()),
   label: text().unique().notNull(),
+  createdAt: text('created_at').notNull().default(sql`(CURRENT_TIMESTAMP)`),
+})
+
+export const bookings = sqliteTable('bookings', {
+  id: text('id').primaryKey().$defaultFn(() => createId()),
+  deskId: text('desk_id').notNull().references(() => desks.id),
+  createdBy: text('created_by').notNull().references(() => users.id),
+  bookedDate: text('booked_date').notNull(),
   createdAt: text('created_at').notNull().default(sql`(CURRENT_TIMESTAMP)`),
 })

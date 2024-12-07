@@ -36,3 +36,21 @@ export const DesksQueryParamsSchema = z.object({
   start: z.string().date().optional(),
   end: z.string().date().optional(),
 })
+
+export const BookingCreatePayloadSchema = z.object({
+  deskId: z.string(),
+  createdBy: z.string(),
+  bookedDate: z.string().date(),
+})
+
+export const BookingsCreatePayloadSchema = z.union([
+  BookingCreatePayloadSchema,
+  z.array(BookingCreatePayloadSchema),
+])
+
+export const BookingUpdatePayloadSchema = BookingCreatePayloadSchema.partial()
+
+export const BookingsQueryParamsSchema = z.object({
+  start: z.string().date(),
+  end: z.string().date(),
+}).partial()
