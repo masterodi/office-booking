@@ -19,5 +19,5 @@ This is the first "big" web app I've worked on at my first internship. The point
     - [x] Create a booking
     - [x] List all bookings, all bookings in a day, all bookings in a date range etc.
     - [x] Update a booking
-    - [ ] Delete a booking
+    - [x] Delete a booking
 - [ ] Create a map of the office and let the user book by clicking on it
