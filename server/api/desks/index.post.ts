@@ -1,11 +1,13 @@
 import { DesksCreatePayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const db = useDrizzle()
+  await requireUserSession(event)
 
   let payload = await readValidatedBody(event, body =>
     DesksCreatePayloadSchema.parse(body),
   )
+
+  const db = useDrizzle()
 
   payload = !Array.isArray(payload) ? [payload] : payload
 

@@ -3,5 +3,10 @@ export default defineEventHandler(async (_event) => {
 
   const res = await db.query.users.findMany()
 
-  return { data: res }
+  const safeData = res.map((user) => {
+    const { passwordHash, ...safe } = user
+    return safe
+  })
+
+  return { data: safeData }
 })

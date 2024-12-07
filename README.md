@@ -12,9 +12,9 @@ This is the first "big" web app I've worked on at my first internship. The point
     - [x] Update a desk
     - [x] Delete a desk
 - [x] Implement server data validation
-- [ ] Implement Authentication/Authorization
+- [x] Implement Authentication/Authorization
     - [x] Implement Authentication
-    - [ ] Implement Authorization
+    - [x] Implement Authorization
 - [ ] Implement booking features
     - [ ] Create a booking
     - [ ] List all bookings, all bookings in a day, all bookings in a date range etc.

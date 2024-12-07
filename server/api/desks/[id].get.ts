@@ -1,9 +1,11 @@
 export default defineEventHandler(async (event) => {
-  const db = useDrizzle()
+  await requireUserSession(event)
 
   const deskId = getRouterParam(event, 'id')
 
   if (!deskId) return
+
+  const db = useDrizzle()
 
   const res = await db.query.desks.findFirst({
     where: (model, { eq }) => eq(model.id, deskId),

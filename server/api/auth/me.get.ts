@@ -1,10 +1,11 @@
 export default defineEventHandler(async (event) => {
-  const db = useDrizzle()
   const { user } = await getUserSession(event)
 
   if (!user) {
     return null
   }
+
+  const db = useDrizzle()
 
   const res = await db.query.users.findFirst({
     where: (model, { eq }) => eq(model.username, user.username),
@@ -15,7 +16,7 @@ export default defineEventHandler(async (event) => {
     return { message: 'Something went wrong' }
   }
 
-  const { passwordHash, ...safe } = res
+  const { passwordHash, ...safeData } = res
 
-  return safe
+  return safeData
 })

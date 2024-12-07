@@ -1,11 +1,13 @@
 import { DesksQueryParamsSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const db = useDrizzle()
+  await requireUserSession(event)
 
   const { start, end } = await getValidatedQuery(event, value =>
     DesksQueryParamsSchema.parse(value),
   )
+
+  const db = useDrizzle()
 
   const res = await db.query.desks.findMany({
     where: (model, { gte, lte, between }) => {

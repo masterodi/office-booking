@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { DeskUpdatePayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const db = useDrizzle()
+  await requireUserSession(event)
 
   const deskId = getRouterParam(event, 'id')
 
@@ -11,6 +11,8 @@ export default defineEventHandler(async (event) => {
   const payload = await readValidatedBody(event, body =>
     DeskUpdatePayloadSchema.parse(body),
   )
+
+  const db = useDrizzle()
 
   const updateResult = await db
     .update(tables.desks)

@@ -1,8 +1,6 @@
 import { RegisterPayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const db = useDrizzle()
-
   const payload = await readValidatedBody(event, body =>
     RegisterPayloadSchema.parse(body),
   )
@@ -10,6 +8,8 @@ export default defineEventHandler(async (event) => {
   const passwordHash = await hashPasswordArgon(payload.password)
 
   const user = { username: payload.username, passwordHash }
+
+  const db = useDrizzle()
 
   await db.insert(tables.users).values(user)
 

@@ -1,11 +1,11 @@
 import { LoginPayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const db = useDrizzle()
-
   const payload = await readValidatedBody(event, body =>
     LoginPayloadSchema.parse(body),
   )
+
+  const db = useDrizzle()
 
   const existingUser = await db.query.users.findFirst({
     where: (model, { eq }) => eq(model.username, payload.username),
