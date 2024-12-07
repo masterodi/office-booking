@@ -1,9 +1,7 @@
 import { DesksQueryParamsSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const { start, end } = await getValidatedQuery(event, value =>
-    DesksQueryParamsSchema.parse(value),
-  )
+  const { start, end } = await getValidatedQuery(event, validateWithSchema(DesksQueryParamsSchema))
 
   const db = useDrizzle()
 

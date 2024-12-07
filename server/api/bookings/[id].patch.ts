@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
   if (!bookingId) return
 
-  const payload = await readValidatedBody(event, body => BookingUpdatePayloadSchema.parse(body))
+  const payload = await readValidatedBody(event, validateWithSchema(BookingUpdatePayloadSchema))
 
   const db = useDrizzle()
 

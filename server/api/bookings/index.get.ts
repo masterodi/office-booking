@@ -1,7 +1,7 @@
 import { BookingsQueryParamsSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const { start, end } = await getValidatedQuery(event, qps => BookingsQueryParamsSchema.parse(qps))
+  const { start, end } = await getValidatedQuery(event, validateWithSchema(BookingsQueryParamsSchema))
 
   const db = useDrizzle()
 

@@ -1,9 +1,7 @@
 import { LoginPayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const payload = await readValidatedBody(event, body =>
-    LoginPayloadSchema.parse(body),
-  )
+  const payload = await readValidatedBody(event, validateWithSchema(LoginPayloadSchema))
 
   const db = useDrizzle()
 

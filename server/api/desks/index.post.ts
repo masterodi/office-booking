@@ -8,9 +8,7 @@ export default defineEventHandler(async (event) => {
     return { message: 'Unauthorized' }
   }
 
-  let payload = await readValidatedBody(event, body =>
-    DesksCreatePayloadSchema.parse(body),
-  )
+  let payload = await readValidatedBody(event, validateWithSchema(DesksCreatePayloadSchema))
 
   const db = useDrizzle()
 

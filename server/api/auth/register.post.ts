@@ -1,9 +1,7 @@
 import { RegisterPayloadSchema } from '~/utils/schemas'
 
 export default defineEventHandler(async (event) => {
-  const payload = await readValidatedBody(event, body =>
-    RegisterPayloadSchema.parse(body),
-  )
+  const payload = await readValidatedBody(event, validateWithSchema(RegisterPayloadSchema))
 
   const passwordHash = await hashPasswordArgon(payload.password)
 

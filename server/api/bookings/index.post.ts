@@ -3,7 +3,7 @@ import { BookingsCreatePayloadSchema } from '~/utils/schemas'
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)
 
-  let payload = await readValidatedBody(event, body => BookingsCreatePayloadSchema.parse(body))
+  let payload = await readValidatedBody(event, validateWithSchema(BookingsCreatePayloadSchema))
 
   payload = Array.isArray(payload) ? payload : [payload]
 
