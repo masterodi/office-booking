@@ -24,3 +24,8 @@ logs
 !.env.example
 
 .vscode
+
+api-testing
+
+auto-imports.d.ts
+components.d.ts

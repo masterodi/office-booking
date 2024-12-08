@@ -1,15 +1,24 @@
-<script setup>
+<script setup lang="ts">
+definePageMeta({
+  middleware: ['auth-guard-middleware'],
+})
+
 const { clear, user } = useUserSession()
+
+async function logout() {
+  clear()
+  reloadNuxtApp()
+}
 </script>
 
 <template>
   <div>
     <div>{{ JSON.stringify(user) }}</div>
-    <button
+    <UButton
       v-if="user"
-      @click="clear"
+      @click="logout"
     >
       Logout
-    </button>
+    </UButton>
   </div>
 </template>

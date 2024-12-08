@@ -10,8 +10,15 @@ export default defineEventHandler(async (event) => {
   })
 
   if (!existingUser) {
-    setResponseStatus(event, 401)
-    return { message: 'Bad credentials' }
+    const passwordHash = await hashPasswordArgon(payload.password)
+    const user = { username: payload.username, passwordHash }
+    const insertRes = await db.insert(tables.users).values(user).returning({ username: tables.users.username, role: tables.users.role })
+    const insertedUser = insertRes[0]
+    await replaceUserSession(event, {
+      user: { username: insertedUser.username, role: insertedUser.role },
+      loggedInAt: new Date(),
+    })
+    return
   }
 
   const doPasswordsMatch = await verifyPasswordHashArgon(
@@ -20,8 +27,7 @@ export default defineEventHandler(async (event) => {
   )
 
   if (!doPasswordsMatch) {
-    setResponseStatus(event, 401)
-    return { message: 'Bad credentials' }
+    throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
 
   await replaceUserSession(event, {
@@ -29,5 +35,5 @@ export default defineEventHandler(async (event) => {
     loggedInAt: new Date(),
   })
 
-  return true
+  return { message: '' }
 })
