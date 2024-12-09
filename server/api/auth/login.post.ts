@@ -12,10 +12,15 @@ export default defineEventHandler(async (event) => {
   if (!existingUser) {
     const passwordHash = await hashPasswordArgon(payload.password)
     const user = { username: payload.username, passwordHash }
-    const insertRes = await db.insert(tables.users).values(user).returning({ username: tables.users.username, role: tables.users.role })
+    const insertRes = await db.insert(tables.users).values(user)
+      .returning({
+        id: tables.users.id,
+        username: tables.users.username,
+        role: tables.users.role,
+      })
     const insertedUser = insertRes[0]
     await replaceUserSession(event, {
-      user: { username: insertedUser.username, role: insertedUser.role },
+      user: { id: insertedUser.id, username: insertedUser.username, role: insertedUser.role },
       loggedInAt: new Date(),
     })
     return
@@ -31,7 +36,7 @@ export default defineEventHandler(async (event) => {
   }
 
   await replaceUserSession(event, {
-    user: { username: existingUser.username, role: existingUser.role },
+    user: { id: existingUser.id, username: existingUser.username, role: existingUser.role },
     loggedInAt: new Date(),
   })
 
