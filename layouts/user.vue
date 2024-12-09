@@ -14,6 +14,11 @@ const items = ref([
     to: '/admin/desks',
   },
   {
+    label: 'Manage Bookings',
+    icon: 'i-lucide-book-open',
+    to: '/admin/bookings',
+  },
+  {
     label: 'Manage Users',
     icon: 'i-lucide-book-open',
   },

@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
   const db = useDrizzle()
 
-  db.delete(tables.bookings).where(eq(tables.bookings.id, bookingId))
+  await db.delete(tables.bookings).where(eq(tables.bookings.id, bookingId))
 
   return
 })

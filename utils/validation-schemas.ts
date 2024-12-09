@@ -43,7 +43,7 @@ export const DesksQueryParamsSchema = z.object({
 export const BookingCreatePayloadSchema = z.object({
   deskId: z.string(),
   createdBy: z.string(),
-  bookedDate: z.string().date(),
+  bookedDate: z.coerce.date(),
 })
 
 export const BookingsCreatePayloadSchema = z.union([
@@ -56,4 +56,5 @@ export const BookingUpdatePayloadSchema = BookingCreatePayloadSchema.partial()
 export const BookingsQueryParamsSchema = z.object({
   start: z.string().date(),
   end: z.string().date(),
+  include: z.array(z.enum(['user', 'desk'])),
 }).partial()
