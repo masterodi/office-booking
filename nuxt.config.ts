@@ -7,12 +7,18 @@ export default defineNuxtConfig({
     'nuxt-auth-utils',
     '@nuxt/ui',
   ],
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   css: ['~/assets/css/main.css'],
   compatibilityDate: '2024-11-01',
   eslint: {
     config: {
       stylistic: true,
     },
+  },
+  icon: {
+    customCollections: [{
+      prefix: 'custom',
+      dir: './assets/icons',
+    }],
   },
 })
