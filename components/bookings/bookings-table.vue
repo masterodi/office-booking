@@ -1,14 +1,5 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
-import type { PropType } from 'vue'
-
-type BookingWithUserWithDesk = Booking & { user: SafeUser, desk: Desk }
-
-const props = defineProps({
-  data: { type: Array as PropType<BookingWithUserWithDesk[]>, default: [] as BookingWithUserWithDesk[] },
-  loading: Boolean,
-  refresh: { type: Function, required: true },
-})
 
 const columns = [
   {
@@ -36,6 +27,10 @@ const columns = [
   },
 ]
 
+const bookingsStore = useBookingsStore()
+
+await useAsyncData(() => bookingsStore.fetchBookings().then(() => true), { lazy: true })
+
 const toast = useToast()
 
 function getDropdownActions(booking: BookingWithUserWithDesk): DropdownMenuItem[] {
@@ -45,11 +40,9 @@ function getDropdownActions(booking: BookingWithUserWithDesk): DropdownMenuItem[
       icon: 'i-lucide-trash',
       color: 'error',
       onSelect: async () => {
-        console.log(booking)
-
-        await $fetch(`/api/bookings/${booking.id}`, { method: 'DELETE' })
+        await bookingsStore.deleteBooking(booking.id)
         toast.add({ title: 'Booking deleted', color: 'success' })
-        await props.refresh()
+        await bookingsStore.fetchBookings()
       },
     },
   ]
@@ -59,9 +52,9 @@ function getDropdownActions(booking: BookingWithUserWithDesk): DropdownMenuItem[
 <template>
   <UTable
     sticky
-    :loading="loading"
     :columns="columns"
-    :data="data"
+    :loading="bookingsStore.loading"
+    :data="bookingsStore.bookings"
   >
     <template #bookedDate-cell="{ row }">
       <div>{{ new Date(parseInt(row.original.bookedDate)).toDateString() }}</div>

@@ -4,6 +4,7 @@ import type * as schemas from './validation-schemas'
 
 export type Desk = InferSelectModel<typeof tables.desks>
 export type Booking = InferSelectModel<typeof tables.bookings>
+export type BookingWithUserWithDesk = Booking & { user: SafeUser, desk: Desk }
 export type User = InferSelectModel<typeof tables.users>
 export type SafeUser = Omit<User, 'passwordHash'>
 

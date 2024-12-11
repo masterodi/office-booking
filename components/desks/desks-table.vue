@@ -43,8 +43,8 @@ function getDropdownActions(desk: Desk): DropdownMenuItem[] {
 <template>
   <UTable
     sticky
-    :loading="desksStore.loading"
     :columns="columns"
+    :loading="desksStore.loading"
     :data="desksStore.desks"
   >
     <template #action-cell="{ row }">
