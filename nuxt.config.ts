@@ -6,8 +6,15 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'nuxt-auth-utils',
     '@nuxt/ui',
+    '@pinia/nuxt',
   ],
-  devtools: { enabled: false },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
+  devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   compatibilityDate: '2024-11-01',
   eslint: {
