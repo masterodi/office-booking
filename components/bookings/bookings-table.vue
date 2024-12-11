@@ -53,7 +53,7 @@ function getDropdownActions(booking: BookingWithUserWithDesk): DropdownMenuItem[
   <UTable
     sticky
     :columns="columns"
-    :loading="bookingsStore.loading"
+    :loading="bookingsStore.loading.fetch"
     :data="bookingsStore.bookings"
   >
     <template #bookedDate-cell="{ row }">

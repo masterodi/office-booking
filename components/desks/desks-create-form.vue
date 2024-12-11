@@ -45,6 +45,8 @@ async function handleCreateDesk(event: FormSubmitEvent<Schema>) {
 
     <UButton
       type="submit"
+      :loading="desksStore.loading.create"
+      :disabled="desksStore.loading.create"
       class="mt-2"
     >
       Create Desk
