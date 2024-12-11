@@ -1,12 +1,5 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
-import type { PropType } from 'vue'
-
-const props = defineProps({
-  data: { type: Array as PropType<Desk[]>, default: [] as Desk[] },
-  loading: Boolean,
-  refresh: { type: Function, required: true },
-})
 
 const columns = [
   {
@@ -27,6 +20,9 @@ const columns = [
 ]
 
 const toast = useToast()
+const desksStore = useDesksStore()
+
+await useAsyncData(() => desksStore.fetchDesks().then(() => true), { lazy: true })
 
 function getDropdownActions(desk: Desk): DropdownMenuItem[] {
   return [
@@ -35,9 +31,9 @@ function getDropdownActions(desk: Desk): DropdownMenuItem[] {
       icon: 'i-lucide-trash',
       color: 'error',
       onSelect: async () => {
-        await $fetch(`/api/desks/${desk.id}`, { method: 'DELETE' })
+        await desksStore.deleteDesk(desk.id)
         toast.add({ title: 'Desk deleted', color: 'success' })
-        await props.refresh()
+        await desksStore.fetchDesks()
       },
     },
   ]
@@ -47,9 +43,9 @@ function getDropdownActions(desk: Desk): DropdownMenuItem[] {
 <template>
   <UTable
     sticky
-    :loading="loading"
+    :loading="desksStore.loading"
     :columns="columns"
-    :data="data"
+    :data="desksStore.desks"
   >
     <template #action-cell="{ row }">
       <ClientOnly>

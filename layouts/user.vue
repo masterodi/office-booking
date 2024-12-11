@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import AppFooter from './-components/app-footer.vue'
-import AppUserNavbar from './-components/app-user-navbar.vue'
-
 const items = ref([
   {
     label: 'Book a desk',
@@ -27,7 +24,7 @@ const items = ref([
 
 <template>
   <div>
-    <AppUserNavbar />
+    <UserNavbar />
 
     <div class="h-screen flex flex-row">
       <UNavigationMenu

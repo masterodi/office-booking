@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import BookingsTable from './-bookings-table.vue'
-
 definePageMeta({
   middleware: ['auth-guard-middleware'],
 })

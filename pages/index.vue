@@ -3,22 +3,12 @@ definePageMeta({
   middleware: ['auth-guard-middleware'],
 })
 
-const { clear, user } = useUserSession()
-
-async function logout() {
-  clear()
-  reloadNuxtApp()
-}
+const { user } = useUserSession()
 </script>
 
 <template>
   <div>
     <div>{{ JSON.stringify(user) }}</div>
-    <UButton
-      v-if="user"
-      @click="logout"
-    >
-      Logout
-    </UButton>
+    <div class="w-4xl" />
   </div>
 </template>
