@@ -1,4 +1,5 @@
 import { createClient } from '@libsql/client'
+import type { DBQueryConfig, ExtractTablesWithRelations } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/libsql'
 import * as schema from '../database/schema'
 
@@ -9,6 +10,17 @@ const turso = createClient({
   authToken: process.env.TURSO_AUTH_TOKEN,
 })
 
+const db = drizzle(turso, { schema })
+
 export function useDrizzle() {
-  return drizzle(turso, { schema })
+  return db
 }
+
+export type TSchema = ExtractTablesWithRelations<typeof schema>
+export type QueryConfig<TableName extends keyof TSchema> = DBQueryConfig<
+  'one' | 'many',
+  boolean,
+  TSchema,
+  TSchema[TableName]
+>
+export type TDB = typeof db
