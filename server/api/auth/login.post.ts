@@ -5,8 +5,10 @@ export default defineEventHandler(async (event) => {
 
   const db = useDrizzle()
 
+  const getWhere: GetWhere<'users', false> = () => (model, { eq }) => eq(model.username, payload.username)
+
   const existingUser = await db.query.users.findFirst({
-    where: (model, { eq }) => eq(model.username, payload.username),
+    where: getWhere(),
   })
 
   if (!existingUser) {
@@ -40,5 +42,5 @@ export default defineEventHandler(async (event) => {
     loggedInAt: new Date(),
   })
 
-  return { message: '' }
+  return
 })

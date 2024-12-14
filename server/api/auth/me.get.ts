@@ -1,14 +1,14 @@
 export default defineEventHandler(async (event) => {
   const { user } = await getUserSession(event)
 
-  if (!user) {
-    return null
-  }
+  if (!user) return null
 
   const db = useDrizzle()
 
+  const getWhere: GetWhere<'users', false> = () => (model, { eq }) => eq(model.username, user.username)
+
   const res = await db.query.users.findFirst({
-    where: (model, { eq }) => eq(model.username, user.username),
+    where: getWhere(),
   })
 
   if (!res) {

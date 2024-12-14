@@ -1,15 +1,11 @@
-import type { TDB } from '~/server/utils/drizzle'
 import { BookingsQueryParamsSchema } from '~/utils/validation-schemas'
-
-type GetWhere = () => NonNullable<Parameters<TDB['query']['bookings']['findFirst']>[0]>['where']
-type GetWith = () => NonNullable<Parameters<TDB['query']['bookings']['findFirst']>[0]>['with']
 
 export default defineEventHandler(async (event) => {
   const { date, start, end, include } = await getValidatedQuery(event, validateWithSchema(BookingsQueryParamsSchema))
 
   const db = useDrizzle()
 
-  const getWhere: GetWhere = () => (model, { eq, gte, lte, between }) => {
+  const getWhere: GetWhere<'bookings'> = () => (model, { eq, gte, lte, between }) => {
     if (date) {
       return eq(model.bookedDate, date)
     }
@@ -33,7 +29,7 @@ export default defineEventHandler(async (event) => {
     return
   }
 
-  const getWith: GetWith = () => {
+  const getWith: GetWith<'bookings'> = () => {
     let inc: { user?: { columns: { passwordHash: boolean } }, desk?: true } | undefined
 
     if (include?.includes('user')) {

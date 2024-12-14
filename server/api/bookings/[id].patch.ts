@@ -12,7 +12,9 @@ export default defineEventHandler(async (event) => {
 
   const db = useDrizzle()
 
-  const updateResult = await db.update(tables.bookings).set(payload).where(eq(tables.bookings.id, bookingId)).returning()
+  const updateResult = await db.update(tables.bookings).set(payload)
+    .where(eq(tables.bookings.id, bookingId))
+    .returning()
 
   return { data: updateResult }
 })

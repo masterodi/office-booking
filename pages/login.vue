@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { FormSubmitEvent } from '@nuxt/ui'
 import type { z } from 'zod'
-import type { FormSubmitEvent } from '#ui/types'
 
 definePageMeta({
   middleware: ['guest-guard-middleware'],

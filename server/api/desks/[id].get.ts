@@ -5,8 +5,12 @@ export default defineEventHandler(async (event) => {
 
   const db = useDrizzle()
 
+  const getWhere: GetWhere<'desks', false> = () => (model, { eq }) => {
+    return eq(model.id, deskId)
+  }
+
   const res = await db.query.desks.findFirst({
-    where: (model, { eq }) => eq(model.id, deskId),
+    where: getWhere(),
   })
 
   if (!res) {
