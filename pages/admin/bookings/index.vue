@@ -6,10 +6,6 @@ definePageMeta({
 
 <template>
   <div class="overflow-y-auto h-screen p-4">
-    <BookingsTable
-      :data="response?.data"
-      :loading="status === 'pending'"
-      :refresh="refresh"
-    />
+    <BookingsTable />
   </div>
 </template>

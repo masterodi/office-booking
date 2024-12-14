@@ -32,3 +32,14 @@ Make sure disabled buttons don't get the pointer cursor.
 :disabled {
   cursor: default;
 }
+
+[data-desk] {
+  fill: magenta;
+  opacity: 80%;
+  cursor: pointer;
+}
+
+[data-desk]:hover {
+  fill: cyan;
+}
+
