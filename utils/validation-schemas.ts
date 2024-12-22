@@ -38,6 +38,8 @@ export const DeskUpdatePayloadSchema = DeskCreatePayloadSchema.partial()
 export const DesksQueryParamsSchema = z.object({
   start: z.string().date(),
   end: z.string().date(),
+  available: z.enum(['true', 'false']).transform(val => val === 'true'),
+  date: z.string().date(),
 }).partial()
 
 export const BookingCreatePayloadSchema = z.object({

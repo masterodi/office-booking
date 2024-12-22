@@ -1,7 +1,7 @@
 import { BookingsCreatePayloadSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event)
+  // await requireUserSession(event)
 
   let payload = await readValidatedBody(event, validateWithSchema(BookingsCreatePayloadSchema))
 

@@ -7,9 +7,15 @@ export const useBookingsStore = defineStore('bookings', () => {
     delete: false,
   })
 
-  const fetchBookings = async () => {
+  const fetchBookings = async ({ date }: { date?: string } = {}) => {
     loading.fetch = true
-    const result = await $fetch('/api/bookings?include=user&include=desk', { method: 'GET' })
+    let qps = 'include=user&include=desk'
+
+    if (date) {
+      qps = `${qps}&date=${date}`
+    }
+
+    const result = await $fetch(`/api/bookings?${qps}`, { method: 'GET' })
     bookings.value = result.data as BookingWithUserWithDesk[]
     loading.fetch = false
   }

@@ -1,12 +1,10 @@
-@API=http://localhost:3000/api
-
-GET {{API}}/auth/me
+GET {{HOST}}/auth/me
 ###
 
-GET {{API}}/_auth/session
+GET {{HOST}}/_auth/session
 ###
 
-POST {{API}}/auth/register
+POST {{HOST}}/auth/register
 Content-Type: application/json
 {
     "username": "username",
@@ -14,7 +12,7 @@ Content-Type: application/json
 }
 ###
 
-POST {{API}}/auth/login
+POST {{HOST}}/auth/login
 Content-Type: application/json
 {
     "username": "username",
@@ -22,5 +20,26 @@ Content-Type: application/json
 }
 ###
 
-POST {{API}}/auth/logout
+POST {{HOST}}/auth/logout
 ###
+
+GET {{HOST}}/users
+###
+
+GET {{HOST}}/desks?start=2024-12-19
+###
+
+POST {{HOST}}/desks
+###
+
+GET {{HOST}}/bookings
+###
+
+POST {{HOST}}/bookings
+Content-Type: application/json
+{
+    "bookedDate": "2024-12-22",
+    "deskId": "g9cf5vu8khgm4oeyjdyok5oa",
+    "createdBy": "t289dn9g3mgzwgge9s79x9l7"
+}
+

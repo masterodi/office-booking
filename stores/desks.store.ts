@@ -1,3 +1,10 @@
+type FetchOptions = {
+  start?: string
+  end?: string
+  available?: boolean
+  date?: string
+}
+
 export const useDesksStore = defineStore('desks', () => {
   const desks = ref<Desk[]>([])
   const loading = reactive({
@@ -7,10 +14,28 @@ export const useDesksStore = defineStore('desks', () => {
     delete: false,
   })
 
-  const fetchDesks = async () => {
+  const fetchDesks = async (options?: FetchOptions) => {
     loading.fetch = true
-    const result = await $fetch('/api/desks', { method: 'GET' })
-    desks.value = result.data
+
+    let fetchResult
+
+    if (options) {
+      const { start, end, date, available } = options
+
+      const searchParams = new URLSearchParams()
+
+      if (start) searchParams.append('start', start)
+      if (end) searchParams.append('end', end)
+      if (date) searchParams.append('date', date)
+      if (available !== undefined) searchParams.append('available', available.toString())
+
+      fetchResult = await $fetch(`/api/desks?${searchParams.toString()}`, { method: 'GET' })
+    }
+    else {
+      fetchResult = await $fetch(`/api/desks`, { method: 'GET' })
+    }
+
+    desks.value = fetchResult.data
     loading.fetch = false
   }
 

@@ -22,6 +22,10 @@ export const desks = sqliteTable('desks', {
   createdAt: text('created_at').notNull().default(sql`(CURRENT_TIMESTAMP)`),
 })
 
+export const desksRelations = relations(desks, ({ many }) => ({
+  bookings: many(bookings),
+}))
+
 export const bookings = sqliteTable('bookings', {
   id: text('id').primaryKey().$defaultFn(() => createId()),
   deskId: text('desk_id').notNull().references(() => desks.id, { onDelete: 'cascade' }),

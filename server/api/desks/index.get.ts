@@ -1,33 +1,42 @@
 import { DesksQueryParamsSchema } from '~/utils/validation-schemas'
 
 export default defineEventHandler(async (event) => {
-  const { start, end } = await getValidatedQuery(event, validateWithSchema(DesksQueryParamsSchema))
+  const { available, start, end, date } = await getValidatedQuery(event, validateWithSchema(DesksQueryParamsSchema))
 
   const db = useDrizzle()
 
-  const getWhere: GetWhere<'desks'> = () => (model, { gte, lte, between }) => {
-    if (start && end) {
-      return between(
-        model.createdAt,
-        new Date(start).toISOString(),
-        new Date(end).toISOString(),
-      )
+  const getBookingsWhere: GetWhere<'bookings'> = () => (model, { eq, lte, gte, between }) => {
+    if (date) {
+      return eq(model.bookedDate, date)
     }
 
-    if (end) {
-      return lte(model.createdAt, new Date(end).toISOString())
+    if (start && end) {
+      return between(model.bookedDate, start, end)
     }
 
     if (start) {
-      return gte(model.createdAt, new Date(start).toISOString())
+      return gte(model.bookedDate, start)
     }
 
-    return
+    if (end) {
+      return lte(model.bookedDate, end)
+    }
   }
 
   const res = await db.query.desks.findMany({
-    where: getWhere(),
+    with: {
+      bookings: {
+        where: getBookingsWhere(),
+        columns: { bookedDate: true },
+      },
+    },
   })
 
-  return { data: res }
+  const desks = available === true
+    ? res.filter(desk => desk.bookings.length === 0)
+    : available === false
+      ? res.filter(desk => desk.bookings.length !== 0)
+      : res
+
+  return { data: desks.map(desk => ({ id: desk.id, label: desk.label, createdAt: desk.createdAt })) }
 })

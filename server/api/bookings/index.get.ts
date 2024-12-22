@@ -11,19 +11,15 @@ export default defineEventHandler(async (event) => {
     }
 
     if (start && end) {
-      return between(
-        model.createdAt,
-        new Date(start).toISOString(),
-        new Date(end).toISOString(),
-      )
+      return between(model.createdAt, start, end)
     }
 
     if (end) {
-      return lte(model.createdAt, new Date(end).toISOString())
+      return lte(model.createdAt, end)
     }
 
     if (start) {
-      return gte(model.createdAt, new Date(start).toISOString())
+      return gte(model.createdAt, start)
     }
 
     return
